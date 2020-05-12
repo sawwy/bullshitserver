@@ -3,23 +3,31 @@ const axios = require("axios");
 const cors = require("cors");
 
 const app = express();
+
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, "caesarcipher/build")));
+
 app.use(cors());
-const port = 3001;
-const rootUrl = "https://koodihaaste-api.solidabis.com/bullshit";
+const port = process.env.PORT || 3001;
+const rootUrl = "https://api.opendota.com/api/";
 
-let config = {
-  headers: {
-    Authorization:
-      "Bearer " +
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJidWxsc2hpdCI6ImJ1bGxzaGl0IiwiaWF0IjoxNTczMzk4MjcwfQ.SGM2omQlNExcGRiAjo1WiPL0XeDC_Ufu8U4I8oKR9Sk"
-  }
-};
-
-app.get("/bullshits", async (req, res) => {
-  let result = await axios.get(rootUrl, config);
+app.get("/api/teams", async (req, res) => {
+  let result = await axios.get(`${rootUrl}/teams`);
   console.log(result);
   console.log(result.data);
   res.send(result.data);
+});
+
+app.get("/api/heroes", async (req, res) => {
+  let result = await axios.get(`${rootUrl}/heroes`);
+  console.log(result);
+  console.log(result.data);
+  res.send(result.data);
+});
+
+// Anything that doesn't match the above, send back the index.html file
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/caesarcipher/build/index.html"));
 });
 
 app.listen(port);
