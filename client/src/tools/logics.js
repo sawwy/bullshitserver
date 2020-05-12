@@ -128,10 +128,8 @@ const uncipherSentences = async () => {
 
 const init = async () => {
   const fetchedHeroes = await getHeroes();
-  console.log("allheroes", fetchedHeroes);
 
   heroes.all = [...heroes.all, ...fetchedHeroes];
-  console.log("HEROES", heroes);
 };
 
 init();

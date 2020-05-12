@@ -12,12 +12,9 @@ function App() {
   const [showDiscarded, setShowDiscarded] = useState(false);
   const { passedSentences, discardedSentences } = sentences;
 
-  console.log("all heroes", heroes);
-
-  const renderHeroes = heroes.all.map((hero) => {
-    console.log("HERO", hero);
-    return <Hero hero={hero} key={hero.id} />;
-  });
+  const renderHeroes = heroes.all.map((hero) => (
+    <Hero hero={hero} key={hero.id} />
+  ));
 
   return (
     <div className="container">

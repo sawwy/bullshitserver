@@ -2,9 +2,9 @@ import React from "react";
 import "./hero.css";
 
 const Hero = ({ hero }) => {
-  console.log("hero", hero);
+  // Fetching of images is based on this: http://www.sharonkuo.me/dota2/heroes.html
   const shortName = hero.name.replace(/^(npc_dota_hero_)/, "");
-  console.log("short name", shortName);
+
   return (
     <div className="hero">
       <span>{hero.localized_name}</span>
