@@ -26,11 +26,11 @@ app.get("/api/heroes", async (req, res) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "caesarcipher/build")));
+  app.use(express.static(path.join(__dirname, "client/build")));
 
   // Anything that doesn't match the above, send back the index.html file
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "caesarcipher/build", "index.html"));
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
 
