@@ -6,7 +6,6 @@ const path = require("path");
 const app = express();
 
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, "caesarcipher/build")));
 
 app.use(cors());
 const port = process.env.PORT || 3001;
@@ -26,10 +25,14 @@ app.get("/api/heroes", async (req, res) => {
   res.send(result.data);
 });
 
-// Anything that doesn't match the above, send back the index.html file
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "caesarcipher/build/index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "caesarcipher/build")));
+
+  // Anything that doesn't match the above, send back the index.html file
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "caesarcipher/build", "index.html"));
+  });
+}
 
 app.listen(port);
 
